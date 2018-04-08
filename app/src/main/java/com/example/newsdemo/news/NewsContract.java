@@ -1,6 +1,6 @@
-package com.example.newsdemo.contract;
+package com.example.newsdemo.news;
 
-import com.example.newsdemo.entity.NewsGson;
+import com.example.newsdemo.data.entity.NewsGson;
 
 import java.util.List;
 

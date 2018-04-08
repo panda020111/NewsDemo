@@ -1,4 +1,4 @@
-package com.example.newsdemo.entity;
+package com.example.newsdemo.data.entity;
 
 import java.util.List;
 

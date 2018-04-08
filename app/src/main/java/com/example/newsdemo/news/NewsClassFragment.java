@@ -1,10 +1,9 @@
-package com.example.newsdemo.fragment;
+package com.example.newsdemo.news;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.newsdemo.R;
-import com.example.newsdemo.contract.NewsContract;
-import com.example.newsdemo.entity.NewsGson;
-import com.example.newsdemo.presenter.NewsPresenter;
+import com.example.newsdemo.data.entity.NewsGson;
 import com.example.newsdemo.util.PictureUtil;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;

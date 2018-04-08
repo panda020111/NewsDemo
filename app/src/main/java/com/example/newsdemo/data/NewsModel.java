@@ -1,19 +1,14 @@
-package com.example.newsdemo.ui.news.model;
+package com.example.newsdemo.data;
 
 import android.util.Log;
 
 import com.example.newsdemo.constant.TypeUrl;
-import com.example.newsdemo.contract.NewsContract;
-import com.example.newsdemo.entity.NewsGson;
-import com.example.newsdemo.retrofit.ApiService;
-import com.example.newsdemo.retrofit.RetrofitWrapper;
+import com.example.newsdemo.news.NewsContract;
+import com.example.newsdemo.data.entity.NewsGson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;

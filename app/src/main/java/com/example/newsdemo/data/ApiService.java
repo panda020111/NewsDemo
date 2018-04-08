@@ -1,9 +1,8 @@
-package com.example.newsdemo.retrofit;
+package com.example.newsdemo.data;
 
-import com.example.newsdemo.entity.NewsGson;
+import com.example.newsdemo.data.entity.NewsGson;
 
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;

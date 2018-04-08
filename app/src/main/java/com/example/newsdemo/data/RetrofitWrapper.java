@@ -1,4 +1,4 @@
-package com.example.newsdemo.retrofit;
+package com.example.newsdemo.data;
 
 import android.content.Context;
 

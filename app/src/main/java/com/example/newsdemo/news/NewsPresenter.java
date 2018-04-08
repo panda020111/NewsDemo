@@ -1,11 +1,10 @@
-package com.example.newsdemo.presenter;
+package com.example.newsdemo.news;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.example.newsdemo.contract.NewsContract;
-import com.example.newsdemo.entity.NewsGson;
-import com.example.newsdemo.ui.news.model.NewsModel;
+import com.example.newsdemo.data.entity.NewsGson;
+import com.example.newsdemo.data.NewsModel;
 
 import java.util.List;
 
