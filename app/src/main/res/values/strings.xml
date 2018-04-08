@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">NewsDemo</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="main_titles">
+        <item>@string/fragment_news_1</item>
+        <item>@string/fragment_news_2</item>
+        <item>@string/fragment_news_3</item>
+        <item>@string/fragment_news_4</item>
+        <item>@string/fragment_news_5</item>
+        <item>@string/fragment_news_6</item>
+        <item>@string/fragment_news_7</item>
+    </string-array>
+
+    <string name="fragment_news_1">社会</string>
+    <string name="fragment_news_2">国内</string>
+    <string name="fragment_news_3">国际</string>
+    <string name="fragment_news_4">娱乐</string>
+    <string name="fragment_news_5">体育</string>
+    <string name="fragment_news_6">科技</string>
+    <string name="fragment_news_7">健康</string>
+</resources>
