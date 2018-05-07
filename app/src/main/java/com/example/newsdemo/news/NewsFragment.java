@@ -64,6 +64,7 @@ public class NewsFragment extends Fragment {
             mFragments[i] = NewsClassFragment.newInstance(i);
         }
 
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mAdapter = new TabPagerAdapter(getChildFragmentManager(), mTitles, mFragments);
         mAdapter.setTabTitles(mTitles);
         mViewPager.setAdapter(mAdapter);

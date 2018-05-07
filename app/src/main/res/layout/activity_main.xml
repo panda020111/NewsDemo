@@ -8,11 +8,13 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <FrameLayout
+    <com.example.newsdemo.NoScrollViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frag_container">
-    </FrameLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+    </com.example.newsdemo.NoScrollViewPager>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

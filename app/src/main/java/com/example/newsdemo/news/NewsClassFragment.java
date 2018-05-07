@@ -1,9 +1,11 @@
 package com.example.newsdemo.news;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +16,13 @@ import android.widget.TextView;
 
 import com.example.newsdemo.R;
 import com.example.newsdemo.data.entity.NewsGson;
+import com.example.newsdemo.news.adapter.NewsAdapter;
 import com.example.newsdemo.util.PictureUtil;
+import com.example.newsdemo.util.PixUtil;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +33,12 @@ import java.util.List;
 
 public class NewsClassFragment extends Fragment implements NewsContract.View {
 
+    private static final String TAG = "NewsClassFragment";
     private NewsContract.Presenter mPresenter;
     private NewsAdapter mAdapter;
     private EasyRecyclerView mRecyclerView;
     private int mPageIndex = 1;
-
     private int mType;
-
-    private static final String TAG = "NewsClassFragment";
 
     public static NewsClassFragment newInstance(int type) {
         NewsClassFragment fragment = new NewsClassFragment();
@@ -51,7 +54,6 @@ public class NewsClassFragment extends Fragment implements NewsContract.View {
 //        mType = getArguments().getInt("type");
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +65,13 @@ public class NewsClassFragment extends Fragment implements NewsContract.View {
         mRecyclerView.setAdapter(mAdapter = new NewsAdapter(getActivity()));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        // 设置边框
+        SpaceDecoration itemDecoration = new SpaceDecoration((int) PixUtil.convertToPixel(8, getContext()));
+        itemDecoration.setPaddingEdgeSide(true);
+        itemDecoration.setPaddingStart(true);
+        itemDecoration.setPaddingHeaderFooter(false);
+        mRecyclerView.addItemDecoration(itemDecoration);
+
         mAdapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -70,18 +79,23 @@ public class NewsClassFragment extends Fragment implements NewsContract.View {
             }
         });
 
-//        mRecyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                mRecyclerView.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mPageIndex = 0;
-//                        mPresenter.loadData(mType, mPageIndex);
-//                    }
-//                }, 1000);
-//            }
-//        });
+        // 刷新事件
+        mRecyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // 触发清空数据队列；
+                Log.d(TAG, "onRefresh:  on refresh event emit");
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.clear();
+                        mPageIndex = 0;
+                        mPresenter.loadData(mType, mPageIndex);
+                    }
+                }, 1000);
+
+            }
+        });
 
         mAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
@@ -89,11 +103,20 @@ public class NewsClassFragment extends Fragment implements NewsContract.View {
                 ArrayList<String> data = new ArrayList<>();
                 String picUrl = mAdapter.getAllData().get(position).getPicUrl();
                 Log.d(TAG, "onItemClick: " + picUrl);
+                data.add(picUrl);
+                data.add(mAdapter.getAllData().get(position).getUrl());
+                Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                Bundle bundle = new Bundle();
+
+                // bundle带数据
+                bundle.putStringArrayList("data", data);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
+
         return view;
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -105,41 +128,6 @@ public class NewsClassFragment extends Fragment implements NewsContract.View {
     public void returnData(List<NewsGson.NewsBean> datas) {
         mAdapter.addAll(datas);
         Log.d(TAG, "returnData Size: " + datas.size());
-    }
-
-    public class NewsAdapter extends RecyclerArrayAdapter<NewsGson.NewsBean> {
-
-        public NewsAdapter(Context context) {
-            super(context);
-        }
-
-        @Override
-        public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-            return new NewsViewHolder(parent);
-        }
-    }
-
-    public class NewsViewHolder extends BaseViewHolder<NewsGson.NewsBean> {
-
-        private TextView mTv_name;
-        private TextView mTv_sign;
-        private ImageView mImg_face;
-
-
-        public NewsViewHolder(ViewGroup itemView) {
-            super(itemView, R.layout.news_recycle_item);
-            mTv_name = $(R.id.person_name);
-            mTv_sign = $(R.id.person_sign);
-            mImg_face = $(R.id.person_face);
-        }
-
-        @Override
-        public void setData(final NewsGson.NewsBean data) {
-            mTv_name.setText(data.getTitle());
-            mTv_sign.setText(data.getCtime());
-            PictureUtil.showImage(mImg_face, getContext(), data.getPicUrl());
-            Log.d(TAG, "setData getPic url: " + data.getPicUrl());
-        }
     }
 
     private void lazyFetchData() {

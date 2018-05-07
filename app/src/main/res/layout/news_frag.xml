@@ -12,6 +12,11 @@
         android:layout_height="match_parent"
         app:recyclerClipToPadding="true"
         app:scrollbars="none"
+        app:recyclerPadding="8dp"
+        app:recyclerPaddingBottom="8dp"
+        app:recyclerPaddingLeft="8dp"
+        app:recyclerPaddingRight="8dp"
+        app:recyclerPaddingTop="8dp"
         app:scrollbarStyle="insideOverlay">
 
     </com.jude.easyrecyclerview.EasyRecyclerView>

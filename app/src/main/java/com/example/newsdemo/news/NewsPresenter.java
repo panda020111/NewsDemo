@@ -2,7 +2,6 @@ package com.example.newsdemo.news;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.example.newsdemo.data.entity.NewsGson;
 import com.example.newsdemo.data.NewsModel;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class NewsPresenter implements NewsContract.Presenter, NewsContract.onLoadDataListener{
 
     private static final String TAG = "NewsPresenter";
-
     private NewsContract.View mView;
     private NewsModel mNewsModel;
     private Context mContext;

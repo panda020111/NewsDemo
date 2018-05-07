@@ -34,7 +34,6 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
             return 0;
         }
         return mFragments.length;
-
     }
 
     @Override
