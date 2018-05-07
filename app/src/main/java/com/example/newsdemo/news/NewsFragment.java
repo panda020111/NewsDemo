@@ -28,16 +28,8 @@ public class NewsFragment extends Fragment {
 
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NewsFragment.
-     */
     // TODO: Rename and change types and number of parameters
-    public static NewsFragment newInstance(String param1, String param2) {
+    public static NewsFragment newInstance() {
         NewsFragment fragment = new NewsFragment();
 
         return fragment;
@@ -65,7 +57,7 @@ public class NewsFragment extends Fragment {
         }
 
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        mAdapter = new TabPagerAdapter(getChildFragmentManager(), mTitles, mFragments);
+        mAdapter = new TabPagerAdapter(getChildFragmentManager(), mFragments);
         mAdapter.setTabTitles(mTitles);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);

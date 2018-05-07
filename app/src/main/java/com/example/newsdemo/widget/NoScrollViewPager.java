@@ -1,4 +1,4 @@
-package com.example.newsdemo;
+package com.example.newsdemo.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

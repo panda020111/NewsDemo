@@ -13,9 +13,8 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     private String[] mTabTitles;
     private Fragment[] mFragments;
 
-    public TabPagerAdapter(FragmentManager fm, String[] tabTitles, Fragment[] fragments) {
+    public TabPagerAdapter(FragmentManager fm, Fragment[] fragments) {
         super(fm);
-        mTabTitles = tabTitles;
         mFragments = fragments;
     }
 

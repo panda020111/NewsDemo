@@ -12,17 +12,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.newsdemo.news.NewsFragment;
+import com.example.newsdemo.picture.PictureFragment;
+import com.example.newsdemo.widget.NoScrollViewPager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
     private DrawerLayout mDrawerLayout;
-
     private Fragment[] mFragments;
 
+    private NoScrollViewPager mViewPager;
+    private TabPagerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +41,25 @@ public class MainActivity extends AppCompatActivity
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        mViewPager = findViewById(R.id.viewPager);
+        mFragments = new Fragment[2];
+        mFragments[0] = NewsFragment.newInstance();
+        mFragments[1] = PictureFragment.newInstance();
+
+        mAdapter = new TabPagerAdapter(getSupportFragmentManager(), mFragments);
+        mViewPager.setAdapter(mAdapter);
+
         // 添加fragment;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        NewsClassFragment fragment = new NewsClassFragment();
-        NewsFragment fragment = new NewsFragment();
-        fragmentTransaction.add(R.id.frag_container, fragment);
-        fragmentTransaction.commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+////        NewsClassFragment fragment = new NewsClassFragment();
+//        NewsFragment fragment = new NewsFragment();
+//        fragmentTransaction.add(R.id.frag_container, fragment);
+//        fragmentTransaction.commit();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -86,16 +102,23 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            mViewPager.setCurrentItem(0);
         } else if (id == R.id.nav_gallery) {
+            Toast.makeText(getApplicationContext(),
+                    "还在开发中O_O", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_slideshow) {
-
+            mViewPager.setCurrentItem(1);
         } else if (id == R.id.nav_manage) {
+            Toast.makeText(getApplicationContext(),
+                    "还在开发中O_O", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_share) {
-
+            Toast.makeText(getApplicationContext(),
+                    "还在开发中O_O", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_send) {
-
+            Toast.makeText(getApplicationContext(),
+                    "还在开发中O_O", Toast.LENGTH_LONG).show();
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
