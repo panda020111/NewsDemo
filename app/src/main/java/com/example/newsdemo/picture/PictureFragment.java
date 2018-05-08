@@ -87,7 +87,6 @@ public class PictureFragment extends Fragment implements PictureContract.View {
         return view;
     }
 
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
