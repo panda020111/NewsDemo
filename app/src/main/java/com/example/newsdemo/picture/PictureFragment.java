@@ -30,6 +30,9 @@ public class PictureFragment extends Fragment implements PictureContract.View {
     private PictureAdaptor mAdapter;
 
     private PicturePresenter mPresenter;
+    private int mPage = 1;
+    private boolean isViewPrepared = false;
+    private boolean hasFetchData;
 
     public static PictureFragment newInstance () {
         PictureFragment fragment = new PictureFragment();
@@ -62,6 +65,8 @@ public class PictureFragment extends Fragment implements PictureContract.View {
             public void onMoreShow() {
                 //
                 Log.e("更多", "更多");
+                mPresenter.loadData(mPage);
+                mPage++;
             }
 
             @Override
@@ -77,20 +82,33 @@ public class PictureFragment extends Fragment implements PictureContract.View {
             }
         });
 
-        mPresenter.loadData(1);
+        isViewPrepared = true;
 
         return view;
     }
 
 
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        mPresenter.loadData(1);
-//    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        lazyFetchDataIfPrepared();
+    }
 
     @Override
     public void returnData(List<PictureGson.NewsListBean> datas) {
         mAdapter.addAll(datas);
     }
+
+    private void lazyFetchDataIfPrepared() {
+        if (isViewPrepared && getUserVisibleHint() && !hasFetchData) {
+            lazyFetchData();
+            hasFetchData = true;
+        }
+    }
+
+    private void lazyFetchData() {
+        mPresenter.loadData(mPage);
+        mPage++;
+    }
+
 }
